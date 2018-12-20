@@ -1,0 +1,8 @@
+<div>
+  <h3>Walker</h3>
+
+  <span>How Long Since Fred Was Fed? {{lastTimeWalked}}</span>
+  <select ng-model="user" data-ng-options="user.name for user in familyMembers.people track by user.id"></select>
+
+  <button ng-click="postWalk(user)">Walked Fred</button>
+</div>

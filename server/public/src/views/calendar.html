@@ -1,0 +1,24 @@
+<div>
+
+  <h3 ng-show="loadingCalendar">Calendar</h3>
+  <h3 ng-show= "!loadingCalendar">{{month}} {{day}}, {{year}} </h3>
+  <table>
+    <tr>
+      <th>Time</th>
+      <th>Event</th>
+      <!-- <th>Dropoff</th>
+      <th>Pickup</th> -->
+    </tr>
+
+    <tr ng-repeat="event in data">
+      <td>{{event.start}}<span ng-if="event.end != 'all day'">-{{event.end}}</span></td>
+      <td>{{event.event}}</td>
+      <!-- <td><input ng-model="pickup_event.event" ng-change="sendRideInfo(event.event, pickup_event.event, 'pickup')" placeholder="who's taking"></input></td>
+      <td><input ng-model="dropOff_event.event"ng-change="sendRideInfo(event.event, dropOff_event.event, 'dropoff')" placeholder="who's getting"></input></td> -->
+    </tr>
+
+
+  </table>
+  <center><div ng-show="loadingCalendar" class="loading"><img style = "padding-top:20px" height= "300px" width = "400px" src = "/loading.gif" /></div></center>
+
+</div>

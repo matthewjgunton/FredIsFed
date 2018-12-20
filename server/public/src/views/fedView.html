@@ -1,0 +1,30 @@
+<div class="{{needsToBeFed}}">
+
+  <h3 style = "color: white">Is Fred Fed?</h3>
+
+  <!--when he's fed have balloons fall from the top of the screen-->
+
+    <div ng-show="needsToBeFed">
+
+      <span>Who Are you?</span>
+      <div id = 'select'>
+        <select ng-model="user" data-ng-options="user.name for user in familyMembers.people"></select>
+      </div>
+      <br>
+      <button ng-click="postdata(user)">Fred Is Fed</button> <br/><br/>
+
+      <!-- <script>
+        $("userSelect").on("change", ()=>{
+          var selectedUser = $("#userSelect option:selected").val();
+          $("")
+        })
+      </script> -->
+
+  </div>
+  <div ng-show="!needsToBeFed">
+    <h3>Thank You For Your Interest In Feeding Fred</h3>
+    <h4>{{lastFed}} fed Fred</h4>
+  </div>
+
+
+</div>

@@ -1,0 +1,25 @@
+{
+  "name": "FredIsFed2.0",
+  "version": "2.0",
+  "description": "redux of fred is fed to make it more useful",
+  "main": "server.js",
+  "author": "Matthew J Gunton",
+  "license": "MIT",
+  "scripts": {
+    "dev": "NODE_ENV=development nodemon server"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "fs": "^0.0.1-security",
+    "google-auth-library": "^0.12.0",
+    "googleapis": "^25.0.0",
+    "mongoose": "^5.2.2",
+    "path": "^0.12.7",
+    "readline": "^1.3.0"
+  },
+  "devDependencies": {
+    "morgan": "^1.9.0",
+    "nodemon": "^1.18.1"
+  }
+}
