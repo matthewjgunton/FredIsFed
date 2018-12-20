@@ -3,7 +3,8 @@ const schema = mongoose.Schema;
 
 const fedSchema = new schema({
   user: String,
-  meal: String
+  meal: String,
+  date: Number
 
 }, {timestamps: true});
 

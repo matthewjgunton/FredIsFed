@@ -17,40 +17,27 @@ exports.index = (req, res) => {
 
 exports.getFedStatus = async (req, res) =>{
 
-  //might need to look back into this
-  var whole = new Date();
-  var hour = whole.getHours();
-
-  if(hour > 12){
-    var waitingFor = "dinner";
-  }
-  else{
-    var waitingFor = "breakfast";
-  }
-
-  console.log(waitingFor);
-
   try{
-    return res.status(200).json({error: false, waitingFor: waitingFor, data: await FedModel.findOne().sort({createdAt: -1})});
+    return res.status(200).json({error: false, data: await FedModel.findOne().sort({createdAt: -1})})
   }catch(e){
-    return res.status(400).json({error: true, msg: 'error fetching the fed data'})
+    return res.status(400).json({error: true, msg: e})
   }
 
 }
 
-exports.getFedHistory = async (req, res) => {
-  try{
-    //make sure the data is small
-    var rawData = await FedModel.find().sort('-date');
-    if(rawData.length > 14){
-      rawData = rawData[0,1,2,3,4,5,6,7,8,9,10,11,12,13];
-    }
-    return res.status(200).json({error: false, data: rawData})
-  }catch(e){
-    console.log(e);
-    return res.status(400).json({error: true, msg: 'error fetching fed history'})
-  }
-}
+// exports.getFedHistory = async (req, res) => {
+//   try{
+//     //make sure the data is small
+//     var rawData = await FedModel.find().sort('-date');
+//     if(rawData.length > 14){
+//       rawData = rawData[0,1,2,3,4,5,6,7,8,9,10,11,12,13];
+//     }
+//     return res.status(200).json({error: false, data: rawData})
+//   }catch(e){
+//     console.log(e);
+//     return res.status(400).json({error: true, msg: 'error fetching fed history'})
+//   }
+// }
 
 exports.postFedStatus = async (req, res) => {
 
@@ -66,23 +53,25 @@ exports.postFedStatus = async (req, res) => {
   }
 
   var whole = new Date();
-  var hour = whole.getHours();
+  var currHour = whole.getHours();
+  var time = whole.now();
 
-  if(hour >= 12 || hour < 12){
+  if(currHour >= 12 || currHour < 12){
 
-    if(hour >=12){
+    if(currHour >=12){
       var meal = "dinner";
     }else{
       var meal = 'breakfast';
     }
   }else{
       console.log('error, internal server error with time');
-    return res.status(400).json({error: true, msg: 'internal server error with time'});
+      return res.status(400).json({error: true, msg: 'internal server error with time'});
   }
 
   const newEntry = new FedModel({
     user: user,
-    meal: meal
+    meal: meal,
+    date: time
   })
 
   console.log(newEntry, 'works?');

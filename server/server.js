@@ -14,7 +14,7 @@ app.use(morgan('dev'));
 //db things
 const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://admin:mjg422@ds018308.mlab.com:18308/fredisfed2", function(err){
+mongoose.connect("mongodb://admin:mjg422@ds018308.mlab.com:18308/fredisfed2", { useNewUrlParser: true }, function(err){
   if(err){
 		console.log("failed to connect to DB");
 
