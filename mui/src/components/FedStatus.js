@@ -13,7 +13,7 @@ export default class Calendar extends Component{
 
   componentDidMount(){
 
-    axios.get("http://localhost:5000/fedStatus")
+    axios.get("http://10.0.0.134:5000/fedStatus")
       .then((res)=>{
         this.setState({
           loading: false,
@@ -33,7 +33,7 @@ export default class Calendar extends Component{
     }
       console.log("reached");
 
-    axios.post('http://localhost:5000/fedStatus', {
+    axios.post('http://10.0.0.134:5000/fedStatus', {
       user: this.state.person
     })
     //might be something wrong here, error left this with no response
@@ -48,7 +48,7 @@ export default class Calendar extends Component{
           data: [],
           waitingFor: "",
         })
-        axios.get("http://localhost:5000/fedStatus")
+        axios.get("http://10.0.0.134:5000/fedStatus")
           .then((res)=>{
             this.setState({
               loading: false,
@@ -125,7 +125,6 @@ export default class Calendar extends Component{
 
     console.log(hideForm);
 
-    const test = this.state.loading ? ('ak'):('bk');
 
 
     return(

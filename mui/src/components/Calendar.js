@@ -12,7 +12,7 @@ export default class Calendar extends Component{
 
   componentDidMount(){
     //let's look into the voss way of replacing this variable below
-    axios.get("http://localhost:5000/calendar")
+    axios.get("http://10.0.0.134:5000/calendar")
       .then((res) => {
         var grab = [];
         try{
