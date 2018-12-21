@@ -3,6 +3,8 @@ var express = require("express");
 var app = express();
 const cors = require("cors");
 
+var path = require('path');
+
 //required to parse forms
 var bodyParser = require("body-parser");
 app.use(bodyParser.json());//it now says body works
@@ -23,7 +25,8 @@ mongoose.connect("mongodb://admin:mjg422@ds018308.mlab.com:18308/fredisfed2", { 
 	}
 });
 
-app.use(cors());
+// app.use(cors());
+app.use(express.static(path.join(__dirname, 'mui/build')));
 
 //required to allow the html files to be served
 app.use("/", express.static(__dirname+"/public"));

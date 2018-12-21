@@ -12,7 +12,7 @@ var RideInfoModel = require("./models/rideInfoModel.js");
 
 
 exports.index = (req, res) => {
-  res.sendFile(path.resolve("index.html"));
+  res.sendFile(path.join(__dirname+'/mui/build/index.html'));
 }
 
 exports.getFedStatus = async (req, res) =>{

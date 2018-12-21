@@ -3,9 +3,6 @@ var sendRoutes = express.Router();
 
 var controller = require("./controller");
 
-sendRoutes.route("/")
-  .get(controller.index);
-
 sendRoutes.route("/calendar")
   .get(controller.getCalendar);
 
@@ -15,5 +12,8 @@ sendRoutes.route("/fedStatus")
 
 sendRoutes.route("/fedHistory")
   .get(controller.getFedHistory);
+
+sendRoutes.route("*")
+  .get(controller.index);
 
 module.exports = sendRoutes;
