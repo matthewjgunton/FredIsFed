@@ -9,9 +9,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>Fred Is Fed</h1>
-        <Calendar />
         <FedStatus />
+        <Calendar />
+
       </div>
     );
   }

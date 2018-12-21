@@ -10,6 +10,18 @@ body {
   background-color: rgb(59, 139, 205);
 }
 
+.bottomLine{
+    border-bottom: 1px solid white;
+    width: 75%;
+    margin: auto;
+    margin-bottom: 30px;
+}
+
+select{
+  width: 25%;
+  display: inline-block;
+}
+
 td{
   border: 1px solid white;
 }

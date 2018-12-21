@@ -17,27 +17,37 @@ exports.index = (req, res) => {
 
 exports.getFedStatus = async (req, res) =>{
 
+  var whole = new Date();
+  var hour = whole.getHours();
+  var waitingFor;
+
+  if(hour > 12){
+    waitingFor = "dinner";
+  }else{
+    waitingFor = 'breakfast';
+  }
+
   try{
-    return res.status(200).json({error: false, data: await FedModel.findOne().sort({createdAt: -1})})
+    return res.status(200).json({error: false, waitingFor: waitingFor, data: await FedModel.findOne().sort({createdAt: -1})})
   }catch(e){
     return res.status(400).json({error: true, msg: e})
   }
 
 }
 
-// exports.getFedHistory = async (req, res) => {
-//   try{
-//     //make sure the data is small
-//     var rawData = await FedModel.find().sort('-date');
-//     if(rawData.length > 14){
-//       rawData = rawData[0,1,2,3,4,5,6,7,8,9,10,11,12,13];
-//     }
-//     return res.status(200).json({error: false, data: rawData})
-//   }catch(e){
-//     console.log(e);
-//     return res.status(400).json({error: true, msg: 'error fetching fed history'})
-//   }
-// }
+exports.getFedHistory = async (req, res) => {
+  try{
+    //make sure the data is small
+    var rawData = await FedModel.find().sort('-date');
+    if(rawData.length > 14){
+      rawData = rawData[0,1,2,3,4,5,6,7,8,9,10,11,12,13];
+    }
+    return res.status(200).json({error: false, data: rawData})
+  }catch(e){
+    console.log(e);
+    return res.status(400).json({error: true, msg: 'error fetching fed history'})
+  }
+}
 
 exports.postFedStatus = async (req, res) => {
 
@@ -54,7 +64,7 @@ exports.postFedStatus = async (req, res) => {
 
   var whole = new Date();
   var currHour = whole.getHours();
-  var time = whole.now();
+  var time = whole.getTime();
 
   if(currHour >= 12 || currHour < 12){
 

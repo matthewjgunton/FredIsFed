@@ -26,12 +26,12 @@ export default class Calendar extends Component{
 
   handleSubmit = (e)=>{
     e.preventDefault();
-    console.log("reached");
 
-    if(this.state.person == ""){
+    if(this.state.person === ""){
       alert("pick someone");
       return;
     }
+      console.log("reached");
 
     axios.post('http://localhost:5000/fedStatus', {
       user: this.state.person
@@ -77,45 +77,65 @@ export default class Calendar extends Component{
 
     console.log(this.state);
 
-    //we need to figure out:
-    //has he been fed already?
-
-    //we know
-    //breakfast:
-    //date last fed would not be today
-    //hours of the day need to be less than 12
-
-    //dinner:
-    //hours of the day need to be greater than 12
-    //if date is equal to today, then last meal must have been breakfast
-
-    //let's base it on the waitingFor variable
-
     const whole = new Date();
-    const hour = whole.getHours();
+    const currHour = whole.getHours();
 
+    const lastWhole = new Date( (whole.getMonth())+"/"+(whole.getDate()-1)+"/"+(whole.getFullYear()) );
+
+    const midWhole = new Date( whole.getFullYear(), whole.getMonth(), whole.getDate(), 12 );
     //we need to find out when the date line is
-    console.log(this.state.data.date);
 
-    if(waitingFor == "breakfast"){
-      //need to find a way to check if dates are equal given only the miliseconds
-      // if(hour > 12)
-    }
-    if(waitingFor == "dinner"){
+    var hideForm = true;
+    var verb = "";
 
-    }else{
-      alert("issue with server");
+    if(!this.state.loading){
+
+          if(this.state.waitingFor === "breakfast"){
+            //need to find a way to check if dates are equal given only the miliseconds
+            if(currHour < 12){
+              //check if last fed miliseconds is less than today at midnight
+              if(this.state.data.date < lastWhole.getTime() ){
+                hideForm = false;
+                verb = "needs to be";
+              }else{
+                hideForm = true;
+                verb = "is";
+              }
+            }
+          }
+          if(this.state.waitingFor === "dinner"){
+
+            if(currHour >= 12){
+              console.log(this.state.data.date+" vs "+midWhole.getTime());
+              if(this.state.data.date < midWhole.getTime()){
+                console.log('entered');
+                hideForm = false;
+                verb = "needs to be";
+              }else{
+                hideForm = true;
+                verb = "is";
+              }
+            }
+
+
+          }else if (!this.state.loading){
+            alert("issue with server");
+          }
     }
+
+    console.log(hideForm);
+
+    const test = this.state.loading ? ('ak'):('bk');
 
 
     return(
-      <div>
-        <h1 hidden = {!show}>Loading...</h1>
+      <div className = "bottomLine">
+        <h1 hidden = {!this.state.loading}>Loading...</h1>
 
 
-        <div hidden = {show}>
+        <div hidden = {this.state.loading}>
           <h1>Fred {verb} Fed</h1>
-          <div className="input-field col s12" hidden = {!allowPost}>
+          <div className="input-field col s12" hidden = {hideForm}>
             <form onSubmit = {this.handleSubmit}>
               <select className="browser-default" onChange = {this.handleChange}>
                 {/*make these names reoder based on who feeds Fred the most*/}
@@ -131,7 +151,7 @@ export default class Calendar extends Component{
               <button type = "submit">FED</button><span>Fred</span>
             </form>
           </div>
-          <h2 hidden = {allowPost}>{this.state.data.user} fed Fred {this.state.data.meal}</h2>
+          <h2 hidden = {!hideForm}>{this.state.data.user} fed Fred {this.state.data.meal}</h2>
 
         </div>
 
