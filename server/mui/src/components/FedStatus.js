@@ -80,9 +80,9 @@ export default class Calendar extends Component{
     const whole = new Date();
     const currHour = whole.getHours();
 
-    const lastWhole = new Date( (whole.getMonth()+1)+"/"+(whole.getDate())+"/"+(whole.getFullYear()) );
+    const lastWhole = new Date( (whole.getMonth())+"/"+(whole.getDate())+"/"+(whole.getFullYear()) );
 
-    const midWhole = new Date( whole.getFullYear(), whole.getMonth()+1, whole.getDate(), 12 );
+    const midWhole = new Date( whole.getFullYear(), whole.getMonth(), whole.getDate(), 12 );
     //we need to find out when the date line is
 
     var hideForm = true;
